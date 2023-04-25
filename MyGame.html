@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guessing Game</title>
+  </head>
+  <body style="text-align:center;">
+    <h1>Guessing Game</h1>
+    <hr>
+    <div style="display: inline-block; border: 2px solid black; padding: 20px; background-color: lightblue;">
+      <p>I'm thinking of a number between 1 and 10, can you guess what it is?</p>
+      <p>You have <span id="attempts">3</span> attempts left.</p>
+      <input type="number" id="guess" placeholder="Enter your guess">
+      <br><br>
+      <button onclick="guessNumber()">Submit</button>
+      <br><br>
+      <p id="output"></p>
+    </div>
+    
+    <script>
+      var answer = Math.floor(Math.random() * 10) + 1;
+      var attempts = 3;
+
+      function guessNumber() {
+        var guess = document.getElementById("guess").value;
+        var output = document.getElementById("output");
+        var attemptsLabel = document.getElementById("attempts");
+
+        if (guess == answer) {
+          output.innerHTML = "Congratulations! You guessed the number.";
+          output.style.color = "green";
+          document.getElementById("guess").disabled = true;
+          document.querySelector("button").disabled = true;
+        } else {
+          attempts--;
+          attemptsLabel.innerHTML = attempts;
+          if (attempts == 0) {
+            output.innerHTML = "Game over. The correct answer was " + answer + ".";
+            output.style.color = "red";
+            document.getElementById("guess").disabled = true;
+            document.querySelector("button").disabled = true;
+          } else {
+            if (guess < answer) {
+              output.innerHTML = "Your guess is too low.";
+              output.style.color = "orange";
+            } else {
+              output.innerHTML = "Your guess is too high.";
+              output.style.color = "orange";
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
